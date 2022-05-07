@@ -20,6 +20,7 @@ namespace data_structures
         void pop_back();
         int front() const;
         int back() const;
+        void clear();
         list &operator=(const list &v);
         bool operator==(const list &v) const;
         bool operator!=(const list &v) const { return !(*this == v); }
@@ -38,6 +39,29 @@ namespace data_structures
         int _size;
         list_node *_head;
         list_node *_tail;
+
+    public:
+        class iterator
+        {
+        public:
+            int &operator*() const { return _node->value; }
+            iterator &operator++();
+            iterator operator++(int);
+            iterator &operator--();
+            iterator operator--(int);
+            bool operator==(const iterator &it) const { return _container == it._container && _node == it._node; }
+            bool operator!=(const iterator &it) const { return !(*this == it); }
+
+        private:
+            const list *_container;
+            list_node *_node;
+            iterator(const list *container, list_node *node) : _container(container), _node(node) {}
+            friend class list;
+        };
+        iterator begin() const { return iterator(this, _head->right); }
+        iterator end() const { return iterator(this, _tail); }
+        iterator reverse_begin() const { return iterator(this, _tail->left); }
+        iterator reverse_end() const { return iterator(this, _head); }
     };
 
 } // end of namespace
