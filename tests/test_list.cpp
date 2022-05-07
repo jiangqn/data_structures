@@ -29,17 +29,9 @@ int main()
     }
     cout << v << endl;
     // cout << v.front() << " " << v.back() << endl;
-    list u(v);
-    v.clear();
-    cout << v.size() << " " << u.size() << endl;
-    list x;
-    cout << x << endl;
-    x = u;
-    cout << x << endl;
-    cout << (x == u) << endl;
-    x.pop_front();
-    x.push_back(10);
-    cout << x << endl;
-    cout << (x != u) << endl;
+    for (auto iter = v.begin(); iter != v.end(); ++iter)
+    {
+        cout << *iter << endl;
+    }
     return 0;
 }
