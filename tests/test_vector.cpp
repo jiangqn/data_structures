@@ -20,7 +20,7 @@ int main()
     cout << v << endl;
     u[4] = 0;
     cout << u << v << endl;
-    cout << v.back() << " " << u.back() << endl;
-    cout << v[0] << " " << u[0] << endl;
+    u.clear();
+    cout << u << v << endl;
     return 0;
 }

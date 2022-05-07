@@ -21,6 +21,7 @@ namespace data_structures
         void push_back(int item);
         void pop_back();
         int back() const;
+        void clear();
         int &operator[](int index) const
         {
             assert(index >= 0 && index < _size);

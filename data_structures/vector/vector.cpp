@@ -78,6 +78,17 @@ namespace data_structures
         _data = data;
     }
 
+    void vector::clear()
+    {
+        _size = 0;
+        if (_memory_size != vector_default_memory_size)
+        {
+            _memory_size = vector_default_memory_size;
+            delete[] _data;
+            _data = new int[_memory_size];
+        }
+    }
+
     vector &vector::operator=(const vector &v)
     {
         if (this != &v)
