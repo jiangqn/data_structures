@@ -25,7 +25,7 @@ namespace data_structures
         std::vector<std::vector<int>> layerorder_traverse() const;
 
         binary_tree &operator=(const binary_tree &v);
-        bool operator==(const binary_tree &v) const;
+        bool operator==(const binary_tree &v) const { return _size == v._size && dfs_equal(_root, v._root); }
         bool operator!=(const binary_tree &v) const { return !(*this == v); }
 
     private:
@@ -46,6 +46,8 @@ namespace data_structures
         tree_node *dfs_remove(tree_node *node, int item);
         tree_node *subtrees_merge(tree_node *left_subtree, tree_node *right_subtree);
         int dfs_count(tree_node *node, int item) const;
+        bool dfs_equal(tree_node *node1, tree_node *node2) const;
+        tree_node *dfs_copy(tree_node *node) const;
 
     public:
         class iterator

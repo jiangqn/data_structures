@@ -15,7 +15,8 @@ namespace data_structures
 
     binary_tree::binary_tree(const binary_tree &v)
     {
-        // to be complete
+        _size = v._size;
+        _root = dfs_copy(v._root);
     }
 
     binary_tree::~binary_tree()
@@ -282,6 +283,56 @@ namespace data_structures
             }
         }
         return res;
+    }
+
+    bool binary_tree::dfs_equal(tree_node *node1, tree_node *node2) const
+    {
+        if (node1 == nullptr && node2 == nullptr)
+        {
+            return true;
+        }
+        else if (node1 == nullptr || node2 == nullptr)
+        {
+            return false;
+        }
+        else
+        {
+            return dfs_equal(node1->left, node2->left) && dfs_equal(node1->right, node2->right);
+        }
+    }
+
+    binary_tree &binary_tree::operator=(const binary_tree &v)
+    {
+        if (this != &v)
+        {
+            clear();
+            _size = v._size;
+            _root = dfs_copy(v._root);
+        }
+        return *this;
+    }
+
+    binary_tree::tree_node *binary_tree::dfs_copy(tree_node *node) const
+    {
+        if (node != nullptr)
+        {
+            tree_node *copy_left = dfs_copy(node->left);
+            tree_node *copy_right = dfs_copy(node->right);
+            tree_node *copy_node = new tree_node(node->value, nullptr, copy_left, copy_right);
+            if (copy_left != nullptr)
+            {
+                copy_left->parent = copy_node;
+            }
+            if (copy_right != nullptr)
+            {
+                copy_right->parent = copy_node;
+            }
+            return copy_node;
+        }
+        else
+        {
+            return nullptr;
+        }
     }
 
     binary_tree::iterator binary_tree::begin() const

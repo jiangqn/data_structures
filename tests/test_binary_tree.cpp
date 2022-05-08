@@ -31,25 +31,12 @@ int main()
         v.insert(x);
     }
     print_vector(v.inorder_traverse());
-    for (auto x = v.begin(); x != v.end(); ++x)
-    {
-        cout << *x << ' ';
-    }
-    cout << endl;
-    for (auto x = v.begin(); x != v.end(); x++)
-    {
-        cout << *x << ' ';
-    }
-    cout << endl;
-    for (auto x = v.reverse_begin(); x != v.reverse_end(); --x)
-    {
-        cout << *x << ' ';
-    }
-    cout << endl;
-    for (auto x = v.reverse_begin(); x != v.reverse_end(); x--)
-    {
-        cout << *x << ' ';
-    }
-    cout << endl;
+    binary_tree u(v);
+    print_vector(u.inorder_traverse());
+    cout << (u == v) << endl;
+    u.remove(0);
+    u.insert(3);
+    cout << (u == v) << endl;
+    print_vector(u.inorder_traverse());
     return 0;
 }
