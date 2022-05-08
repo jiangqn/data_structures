@@ -1,6 +1,9 @@
 #ifndef _INT_SKIP_LIST_
 #define _INT_SKIP_LIST_
 
+#include <vector>
+#include <map>
+
 namespace data_structures
 {
     class skip_list
@@ -10,8 +13,8 @@ namespace data_structures
         skip_list(const skip_list &v);
         ~skip_list();
 
-        int size() const;
-        bool empty() const;
+        int size() const { return _size; }
+        bool empty() const { return _size == 0; }
         void insert(int item);
         bool search(int item) const;
         void remove(int item);
@@ -38,6 +41,9 @@ namespace data_structures
                 this->down = down;
             }
         };
+        typedef std::pair<skip_list_node *, skip_list_node *> layer;
+        std::vector<layer> _layers;
+        int _size;
 
     public:
         class iterator
@@ -56,6 +62,11 @@ namespace data_structures
             skip_list_node *_node;
             iterator(skip_list *container, skip_list_node *node) : _container(container), _node(node) {}
         };
+
+        iterator begin() const;
+        iterator end() const;
+        iterator reverse_begin() const;
+        iterator reverse_end() const;
     };
 } // end of namespace
 
