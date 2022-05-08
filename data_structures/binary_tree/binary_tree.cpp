@@ -1,6 +1,9 @@
 #include "binary_tree.h"
 
 #include <stack>
+#include <queue>
+#include <map>
+#include <assert.h>
 
 namespace data_structures
 {
@@ -50,10 +53,12 @@ namespace data_structures
             if (item < node->value)
             {
                 node->left = dfs_insert(node->left, item);
+                node->left->parent = node;
             }
             else // item >= node->value
             {
                 node->right = dfs_insert(node->right, item);
+                node->right->parent = node;
             }
             return node;
         }
@@ -93,13 +98,89 @@ namespace data_structures
 
     void binary_tree::remove(int item)
     {
-        // to be complete
+        _root = dfs_remove(_root, item);
+        _size -= 1;
     }
 
-    // int binary_tree::count(int item)
-    // {
-    //     // to be complete
-    // }
+    binary_tree::tree_node *binary_tree::dfs_remove(tree_node *node, int item)
+    {
+        if (node != nullptr)
+        {
+            if (item < node->value)
+            {
+                node->left = dfs_remove(node->left, item);
+                if (node->left != nullptr)
+                {
+                    node->left->parent = node;
+                }
+                return node;
+            }
+            else if (item > node->value)
+            {
+                node->right = dfs_remove(node->right, item);
+                if (node->right != nullptr)
+                {
+                    node->right->parent = node;
+                }
+                return node;
+            }
+            else // item == node->value
+            {
+                tree_node *new_node = subtrees_merge(node->left, node->right);
+                delete node;
+                return new_node;
+            }
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    binary_tree::tree_node *binary_tree::subtrees_merge(tree_node *left_subtree, tree_node *right_subtree)
+    {
+        if (left_subtree == nullptr)
+        {
+            return right_subtree;
+        }
+        else if (right_subtree == nullptr)
+        {
+            return left_subtree;
+        }
+        else
+        {
+            right_subtree->left = subtrees_merge(left_subtree, right_subtree->left);
+            return right_subtree;
+        }
+    }
+
+    int binary_tree::count(int item) const
+    {
+        return dfs_count(_root, item);
+    }
+
+    int binary_tree::dfs_count(tree_node *node, int item) const
+    {
+        if (node != nullptr)
+        {
+            if (item < node->value)
+            {
+                return dfs_count(node->left, item);
+            }
+            else if (item > node->value)
+            {
+                return dfs_count(node->right, item);
+            }
+            else // item == node->value
+            {
+                return 1 + dfs_count(node->left, item) + dfs_count(node->right, item);
+            }
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     std::vector<int> binary_tree::preorder_traverse() const
     {
@@ -170,24 +251,157 @@ namespace data_structures
         return res;
     }
 
-    // binary_tree::iterator binary_tree::begin() const
-    // {
-    //     // to be complete
-    // }
+    std::vector<std::vector<int>> binary_tree::layerorder_traverse() const
+    {
+        typedef std::pair<tree_node *, int> queue_node;
+        std::queue<queue_node> que;
+        std::vector<std::vector<int>> res;
+        if (_root != nullptr)
+        {
+            que.push(queue_node(_root, 0));
+        }
+        while (!que.empty())
+        {
+            queue_node qnode = que.front();
+            que.pop();
+            tree_node *node = qnode.first;
+            int depth = qnode.second;
+            if (res.size() <= depth)
+            {
+                std::vector<int> empty;
+                res.push_back(empty);
+            }
+            res[depth].push_back(node->value);
+            if (node->left != nullptr)
+            {
+                que.push(queue_node(node->left, depth + 1));
+            }
+            if (node->right != nullptr)
+            {
+                que.push(queue_node(node->right, depth + 1));
+            }
+        }
+        return res;
+    }
 
-    // binary_tree::iterator binary_tree::end() const
-    // {
-    //     // to be complete
-    // }
+    binary_tree::iterator binary_tree::begin() const
+    {
+        tree_node *node = _root;
+        while (node != nullptr && node->left != nullptr)
+        {
+            node = node->left;
+        }
+        return iterator(this, node);
+    }
 
-    // binary_tree::iterator binary_tree::reverse_begin() const
-    // {
-    //     // to be complete
-    // }
+    binary_tree::iterator binary_tree::reverse_begin() const
+    {
+        tree_node *node = _root;
+        while (node != nullptr && node->right != nullptr)
+        {
+            node = node->right;
+        }
+        return iterator(this, node);
+    }
 
-    // binary_tree::iterator binary_tree::reverse_end() const
-    // {
-    //     // to be complete
-    // }
+    binary_tree::iterator &binary_tree::iterator::operator++()
+    {
+        assert(_node != nullptr);
+        _node = move_right(_node);
+        return *this;
+    }
+
+    binary_tree::iterator binary_tree::iterator::operator++(int)
+    {
+        assert(_node != nullptr);
+        iterator copy_iterator(*this);
+        _node = move_right(_node);
+        return copy_iterator;
+    }
+
+    binary_tree::iterator &binary_tree::iterator::operator--()
+    {
+        assert(_node != nullptr);
+        _node = move_left(_node);
+        return *this;
+    }
+
+    binary_tree::iterator binary_tree::iterator::operator--(int)
+    {
+        assert(_node != nullptr);
+        iterator copy_iterator(*this);
+        _node = move_left(_node);
+        return copy_iterator;
+    }
+
+    binary_tree::tree_node *binary_tree::iterator::move_left(tree_node *node) const
+    {
+        if (node != nullptr)
+        {
+            if (node->left != nullptr)
+            {
+                node = node->left;
+                while (node->right != nullptr)
+                {
+                    node = node->right;
+                }
+                return node;
+            }
+            else
+            {
+                while (node->parent != nullptr)
+                {
+                    if (node == node->parent->right)
+                    {
+                        return node->parent;
+                    }
+                    else
+                    {
+                        node = node->parent;
+                    }
+                }
+                return nullptr;
+            }
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    binary_tree::tree_node *binary_tree::iterator::move_right(tree_node *node) const
+    {
+        if (node != nullptr)
+        {
+            if (node->right != nullptr)
+            {
+                node = node->right;
+                while (node->left != nullptr)
+                {
+                    node = node->left;
+                }
+                return node;
+            }
+            else
+            {
+                while (node->parent != nullptr)
+                {
+                    if (node == node->parent->left)
+                    {
+                        return node->parent;
+                    }
+                    else
+                    {
+                        node = node->parent;
+                    }
+                }
+                return nullptr;
+            }
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
 
 } // end of namespace

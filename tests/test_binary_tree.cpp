@@ -30,13 +30,26 @@ int main()
     {
         v.insert(x);
     }
-    cout << v.size() << endl;
-    print_vector(v.preorder_traverse());
     print_vector(v.inorder_traverse());
-    print_vector(v.postorder_traverse());
-    // for (int i = -5; i < 15; i++)
-    // {
-    //     cout << i << " " << v.search(i) << endl;
-    // }
+    for (auto x = v.begin(); x != v.end(); ++x)
+    {
+        cout << *x << ' ';
+    }
+    cout << endl;
+    for (auto x = v.begin(); x != v.end(); x++)
+    {
+        cout << *x << ' ';
+    }
+    cout << endl;
+    for (auto x = v.reverse_begin(); x != v.reverse_end(); --x)
+    {
+        cout << *x << ' ';
+    }
+    cout << endl;
+    for (auto x = v.reverse_begin(); x != v.reverse_end(); x--)
+    {
+        cout << *x << ' ';
+    }
+    cout << endl;
     return 0;
 }

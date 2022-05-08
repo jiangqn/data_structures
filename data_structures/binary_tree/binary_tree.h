@@ -22,6 +22,11 @@ namespace data_structures
         std::vector<int> preorder_traverse() const;
         std::vector<int> inorder_traverse() const;
         std::vector<int> postorder_traverse() const;
+        std::vector<std::vector<int>> layerorder_traverse() const;
+
+        binary_tree &operator=(const binary_tree &v);
+        bool operator==(const binary_tree &v) const;
+        bool operator!=(const binary_tree &v) const { return !(*this == v); }
 
     private:
         struct tree_node
@@ -38,32 +43,35 @@ namespace data_structures
         void dfs_clear(tree_node *node);
         tree_node *dfs_insert(tree_node *node, int item);
         bool dfs_search(tree_node *node, int item) const;
-        void dfs_remove(tree_node *node, int item);
+        tree_node *dfs_remove(tree_node *node, int item);
+        tree_node *subtrees_merge(tree_node *left_subtree, tree_node *right_subtree);
         int dfs_count(tree_node *node, int item) const;
 
     public:
         class iterator
         {
         public:
-            int &operator*();
+            int &operator*() { return _node->value; }
             iterator &operator++();
             iterator operator++(int);
             iterator &operator--();
             iterator operator--(int);
-            bool operator==(const iterator &v) const;
+            bool operator==(const iterator &v) const { return _container == v._container && _node == v._node; }
             bool operator!=(const iterator &v) const { return !(*this == v); }
 
         private:
             const binary_tree *_container;
             tree_node *_node;
             iterator(const binary_tree *container, tree_node *node) : _container(container), _node(node) {}
+            tree_node *move_left(tree_node *node) const;
+            tree_node *move_right(tree_node *node) const;
             friend class binary_tree;
         };
 
         iterator begin() const;
-        iterator end() const;
+        iterator end() const { return iterator(this, nullptr); }
         iterator reverse_begin() const;
-        iterator reverse_end() const;
+        iterator reverse_end() const { return iterator(this, nullptr); }
     };
 } // end of namespace
 
