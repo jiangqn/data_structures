@@ -77,13 +77,13 @@ namespace data_structures
         _size -= 1;
     }
 
-    int list::front() const
+    int &list::front() const
     {
         assert(_size > 0);
         return _head->right->value;
     }
 
-    int list::back() const
+    int &list::back() const
     {
         assert(_size > 0);
         return _tail->left->value;

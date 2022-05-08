@@ -18,8 +18,8 @@ namespace data_structures
         void push_back(int item);
         void pop_front();
         void pop_back();
-        int front() const;
-        int back() const;
+        int &front() const;
+        int &back() const;
         void clear();
         list &operator=(const list &v);
         bool operator==(const list &v) const;
