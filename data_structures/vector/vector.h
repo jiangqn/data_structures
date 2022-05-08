@@ -18,7 +18,7 @@ namespace data_structures
         bool empty() const { return _size == 0; }
         void push_back(int item);
         void pop_back();
-        int back() const;
+        int &back() const;
         void clear();
         int &operator[](int index) const
         {

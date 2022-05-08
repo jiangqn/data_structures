@@ -47,7 +47,7 @@ namespace data_structures
         }
     }
 
-    int vector::back() const
+    int &vector::back() const
     {
         assert(_size > 0);
         return _data[_size - 1];
