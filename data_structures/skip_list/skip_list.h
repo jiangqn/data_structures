@@ -15,6 +15,7 @@ namespace data_structures
 
         int size() const { return _size; }
         bool empty() const { return _size == 0; }
+        int layers() const { return _layers.size(); }
         void insert(int item);
         bool search(int item) const;
         void remove(int item);
@@ -44,6 +45,10 @@ namespace data_structures
         typedef std::pair<skip_list_node *, skip_list_node *> layer;
         std::vector<layer> _layers;
         int _size;
+        static const int _inf = 0x3f3f3f3f;
+
+        bool roll() const;
+        void add_layer();
 
     public:
         class iterator
@@ -63,10 +68,10 @@ namespace data_structures
             iterator(skip_list *container, skip_list_node *node) : _container(container), _node(node) {}
         };
 
-        iterator begin() const;
-        iterator end() const;
-        iterator reverse_begin() const;
-        iterator reverse_end() const;
+        iterator begin() const { return iterator(this, _layers[0].first->right); }
+        iterator end() const { return iterator(this, _layers[0].second); }
+        iterator reverse_begin() const { return iterator(this, _layers[0].second->left); }
+        iterator reverse_end() const { return iterator(this, _layers[0].first); }
     };
 } // end of namespace
 
