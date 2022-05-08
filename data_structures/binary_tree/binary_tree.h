@@ -1,6 +1,8 @@
 #ifndef _INT_BINARY_TREE_
 #define _INT_BINARY_TREE_
 
+#include <vector>
+
 namespace data_structures
 {
     class binary_tree
@@ -12,9 +14,14 @@ namespace data_structures
         int size() const { return _size; }
         bool empty() const { return _size == 0; }
         void insert(int item);
-        bool search(int item);
+        bool search(int item) const;
         void remove(int item);
+        int count(int item) const;
         void clear();
+
+        std::vector<int> preorder_traverse() const;
+        std::vector<int> inorder_traverse() const;
+        std::vector<int> postorder_traverse() const;
 
     private:
         struct tree_node
@@ -27,6 +34,12 @@ namespace data_structures
         };
         int _size;
         tree_node *_root;
+
+        void dfs_clear(tree_node *node);
+        tree_node *dfs_insert(tree_node *node, int item);
+        bool dfs_search(tree_node *node, int item) const;
+        void dfs_remove(tree_node *node, int item);
+        int dfs_count(tree_node *node, int item) const;
 
     public:
         class iterator
