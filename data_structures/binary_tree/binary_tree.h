@@ -53,7 +53,7 @@ namespace data_structures
         class iterator
         {
         public:
-            int &operator*() { return _node->value; }
+            int &operator*() const { return _node->value; }
             iterator &operator++();
             iterator operator++(int);
             iterator &operator--();
