@@ -7,8 +7,6 @@
 namespace data_structures
 {
 
-    const int vector_default_memory_size = 32;
-
     class vector
     {
     public:
@@ -37,6 +35,7 @@ namespace data_structures
         int _size;
         int _memory_size;
         int *_data;
+        static const int vector_default_memory_size = 32;
 
         void expand();
         void shrink();
