@@ -34,8 +34,8 @@ namespace data_structures
         if (!_layers.empty())
         {
             layer last_layer = _layers.back();
-            last_layer.first->up = head;
-            head->down = last_layer.first;
+            last_layer.head->up = head;
+            head->down = last_layer.head;
         }
         _layers.push_back(layer(head, tail));
     }

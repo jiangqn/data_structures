@@ -8,5 +8,6 @@ int main()
 {
     skip_list v;
     cout << v.size() << endl;
+    auto x = v.begin();
     return 0;
 }

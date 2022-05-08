@@ -42,7 +42,14 @@ namespace data_structures
                 this->down = down;
             }
         };
-        typedef std::pair<skip_list_node *, skip_list_node *> layer;
+
+        struct layer
+        {
+            skip_list_node *head;
+            skip_list_node *tail;
+            layer(skip_list_node *head, skip_list_node *tail) : head(head), tail(tail) {}
+        };
+
         std::vector<layer> _layers;
         int _size;
         static const int _inf = 0x3f3f3f3f;
@@ -66,12 +73,13 @@ namespace data_structures
             const skip_list *_container;
             skip_list_node *_node;
             iterator(skip_list *container, skip_list_node *node) : _container(container), _node(node) {}
+            friend class skip_list;
         };
 
-        iterator begin() const { return iterator(this, _layers[0].first->right); }
-        iterator end() const { return iterator(this, _layers[0].second); }
-        iterator reverse_begin() const { return iterator(this, _layers[0].second->left); }
-        iterator reverse_end() const { return iterator(this, _layers[0].first); }
+        iterator begin() { return iterator(this, _layers.head->right); }
+        iterator end() { return iterator(this, _layers[0].tail); }
+        iterator reverse_begin() { return iterator(this, _layers[0].tail->left); }
+        iterator reverse_end() { return iterator(this, _layers[0].head); }
     };
 } // end of namespace
 
