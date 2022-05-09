@@ -58,6 +58,8 @@ namespace data_structures
             iterator operator++(int);
             iterator &operator--();
             iterator operator--(int);
+            iterator(const iterator &it) : _container(it._container), _node(it._node) {}
+            iterator &operator=(const iterator &);
             bool operator==(const iterator &v) const { return _container == v._container && _node == v._node; }
             bool operator!=(const iterator &v) const { return !(*this == v); }
 

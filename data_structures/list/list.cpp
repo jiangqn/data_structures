@@ -199,4 +199,12 @@ namespace data_structures
         _node = _node->left;
         return copy_iterator;
     }
+
+    list::iterator &list::iterator::operator=(const iterator &it)
+    {
+        assert(_container == it._container);
+        _node = it._node;
+        return *this;
+    }
+
 } // end of namespace

@@ -455,4 +455,11 @@ namespace data_structures
         }
     }
 
+    binary_tree::iterator &binary_tree::iterator::operator=(const iterator &it)
+    {
+        assert(_container == it._container);
+        _node = it._node;
+        return *this;
+    }
+
 } // end of namespace
