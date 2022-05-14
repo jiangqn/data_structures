@@ -1,4 +1,8 @@
 .vscode/*
+.xmake/*
 build/*
+mybuild/*
 run.sh
 *.py
+*.lua
+*.cpp
