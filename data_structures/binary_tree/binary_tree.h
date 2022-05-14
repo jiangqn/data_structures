@@ -53,7 +53,7 @@ namespace data_structures
         class iterator
         {
         public:
-            int &operator*() const { return _node->value; }
+            int operator*() const { return _node->value; }
             iterator &operator++();
             iterator operator++(int);
             iterator &operator--();
@@ -72,10 +72,10 @@ namespace data_structures
             friend class binary_tree;
         };
 
-        iterator begin() const;
-        iterator end() const { return iterator(this, nullptr); }
-        iterator reverse_begin() const;
-        iterator reverse_end() const { return iterator(this, nullptr); }
+        const iterator begin() const;
+        const iterator end() const { return iterator(this, nullptr); }
+        const iterator reverse_begin() const;
+        const iterator reverse_end() const { return iterator(this, nullptr); }
     };
 } // end of namespace
 

@@ -335,7 +335,7 @@ namespace data_structures
         }
     }
 
-    binary_tree::iterator binary_tree::begin() const
+    const binary_tree::iterator binary_tree::begin() const
     {
         tree_node *node = _root;
         while (node != nullptr && node->left != nullptr)
@@ -345,7 +345,7 @@ namespace data_structures
         return iterator(this, node);
     }
 
-    binary_tree::iterator binary_tree::reverse_begin() const
+    const binary_tree::iterator binary_tree::reverse_begin() const
     {
         tree_node *node = _root;
         while (node != nullptr && node->right != nullptr)

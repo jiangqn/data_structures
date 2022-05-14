@@ -36,7 +36,10 @@ int main()
     cout << (u == v) << endl;
     u.remove(0);
     u.insert(3);
-    cout << (u == v) << endl;
-    print_vector(u.inorder_traverse());
+    for (auto it = u.begin(); it != u.end(); ++it)
+    {
+        cout << *it << " ";
+    }
+    cout << endl;
     return 0;
 }

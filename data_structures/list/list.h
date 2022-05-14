@@ -60,10 +60,10 @@ namespace data_structures
             iterator(const list *container, list_node *node) : _container(container), _node(node) {}
             friend class list;
         };
-        iterator begin() const { return iterator(this, _head->right); }
-        iterator end() const { return iterator(this, _tail); }
-        iterator reverse_begin() const { return iterator(this, _tail->left); }
-        iterator reverse_end() const { return iterator(this, _head); }
+        const iterator begin() const { return iterator(this, _head->right); }
+        const iterator end() const { return iterator(this, _tail); }
+        const iterator reverse_begin() const { return iterator(this, _tail->left); }
+        const iterator reverse_end() const { return iterator(this, _head); }
     };
 
 } // end of namespace

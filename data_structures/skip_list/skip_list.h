@@ -63,7 +63,7 @@ namespace data_structures
         class iterator
         {
         public:
-            int &operator*() const { return _node->value; }
+            int operator*() const { return _node->value; }
             iterator &operator++();
             iterator operator++(int);
             iterator &operator--();
@@ -80,10 +80,10 @@ namespace data_structures
             friend class skip_list;
         };
 
-        iterator begin() const { return iterator(this, _layers.front().head->right); }
-        iterator end() const { return iterator(this, _layers.front().tail); }
-        iterator reverse_begin() const { return iterator(this, _layers.front().tail->left); }
-        iterator reverse_end() const { return iterator(this, _layers.front().head); }
+        const iterator begin() const { return iterator(this, _layers.front().head->right); }
+        const iterator end() const { return iterator(this, _layers.front().tail); }
+        const iterator reverse_begin() const { return iterator(this, _layers.front().tail->left); }
+        const iterator reverse_end() const { return iterator(this, _layers.front().head); }
     };
 } // end of namespace
 

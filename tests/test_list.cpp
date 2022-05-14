@@ -31,7 +31,9 @@ int main()
     // cout << v.front() << " " << v.back() << endl;
     for (auto iter = v.begin(); iter != v.end(); ++iter)
     {
-        cout << *iter << endl;
+        *iter = 0;
+        // cout << *iter << endl;
     }
+    cout << v << endl;
     return 0;
 }
