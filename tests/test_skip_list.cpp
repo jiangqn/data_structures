@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../data_structures/skip_list/skip_list.h"
+#include "../data_structures/include/skip_list.h"
 #include <algorithm>
 
 using namespace std;

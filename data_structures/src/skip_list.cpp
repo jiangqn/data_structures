@@ -1,4 +1,4 @@
-#include "skip_list.h"
+#include "../include/skip_list.h"
 
 #include <random>
 #include <algorithm>

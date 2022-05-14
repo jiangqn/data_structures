@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../data_structures/vector/vector.h"
+#include "../data_structures/include/vector.h"
 
 using namespace std;
 using namespace data_structures;

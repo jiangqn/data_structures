@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../data_structures/stack/stack.h"
+#include "../data_structures/include/stack.h"
 
 using namespace std;
 using namespace data_structures;

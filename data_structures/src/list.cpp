@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include "list.h"
+#include "../include/list.h"
 
 namespace data_structures
 {

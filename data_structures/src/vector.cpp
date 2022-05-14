@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include "vector.h"
+#include "../include/vector.h"
 
 namespace data_structures
 {

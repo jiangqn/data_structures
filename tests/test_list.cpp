@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../data_structures/list/list.h"
+#include "../data_structures/include/list.h"
 
 using namespace std;
 using namespace data_structures;

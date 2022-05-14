@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include "../data_structures/binary_tree/binary_tree.h"
+#include "../data_structures/include/binary_tree.h"
 
 using namespace std;
 using namespace data_structures;
